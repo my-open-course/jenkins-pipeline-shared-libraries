@@ -1,0 +1,65 @@
+plugins {
+    id 'java'
+    id 'idea'
+    id 'groovy'
+    id 'jacoco'
+    id 'java-library'
+}
+
+ext {
+    projectGroupId = 'fun.aipark.devops'
+    projectVersion = '1.0.0-SNAPSHOT'
+
+    junitVersion = '4.12'
+    hutoolVersion = '5.7.22'
+    groovyVersion = '2.4.14'
+    groovyCPSVersion = '1.31'
+    jenkinsPipelineUnitVersion = '1.14'
+}
+
+group = projectGroupId
+version = projectVersion
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+idea {
+    module {
+        downloadJavadoc = true
+        downloadSources = true
+        outputDir file("$buildDir/classes/main")
+        testOutputDir file("$buildDir/classes/test")
+    }
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+}
+
+repositories {
+    maven { url 'https://maven.aliyun.com/repository/public' }
+    maven { url 'https://repo.jenkins-ci.org/releases/' }
+    mavenCentral()
+}
+
+dependencies {
+    implementation "cn.hutool:hutool-all:${hutoolVersion}"
+    implementation "com.cloudbees:groovy-cps:${groovyCPSVersion}"
+    implementation "org.codehaus.groovy:groovy-all:${groovyVersion}"
+
+    testImplementation "junit:junit:${junitVersion}"
+    testImplementation "com.lesfurets:jenkins-pipeline-unit:${jenkinsPipelineUnitVersion}"
+}
+
+sourceSets {
+    main {
+        groovy { srcDirs += ['vars', 'src'] }
+        resources { srcDirs += 'resources' }
+    }
+    test {
+        groovy { srcDirs += 'test' }
+    }
+}
