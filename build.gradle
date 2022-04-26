@@ -3,7 +3,6 @@ plugins {
     id 'idea'
     id 'groovy'
     id 'jacoco'
-    id 'java-library'
 }
 
 ext {
@@ -61,5 +60,6 @@ sourceSets {
     }
     test {
         groovy { srcDirs += 'test' }
+        resources { srcDirs += 'test/resources' }
     }
 }
