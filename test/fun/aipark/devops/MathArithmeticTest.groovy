@@ -1,6 +1,7 @@
 package fun.aipark.devops
 
 import com.lesfurets.jenkins.unit.BasePipelineTest
+import com.lesfurets.jenkins.unit.declarative.DeclarativePipelineTest
 import org.junit.Before
 import org.junit.Test
 
@@ -10,7 +11,7 @@ import static com.lesfurets.jenkins.unit.global.lib.ProjectSource.projectSource
 /**
  * @author LDC
  */
-class MathArithmeticTest extends BasePipelineTest {
+class MathArithmeticTest extends DeclarativePipelineTest {
 
     @Before
     @Override

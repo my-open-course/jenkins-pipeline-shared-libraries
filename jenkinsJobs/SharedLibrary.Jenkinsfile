@@ -6,7 +6,7 @@ pipeline {
         stage('Test Shared Library') {
             steps {
                 script {
-                    println(mathArithmetic.add(1, 3))
+                    println("Result: " + mathArithmetic.add(1, 3))
                 }
             }
         }
