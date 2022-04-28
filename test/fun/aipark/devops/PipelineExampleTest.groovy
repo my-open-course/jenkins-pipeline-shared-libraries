@@ -1,6 +1,5 @@
 package fun.aipark.devops
 
-
 import com.lesfurets.jenkins.unit.declarative.DeclarativePipelineTest
 import org.junit.Before
 import org.junit.Test
