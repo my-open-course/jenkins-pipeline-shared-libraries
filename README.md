@@ -1,6 +1,6 @@
 # jenkins-pipeline-shared-libraries
 
-![Build Status](https://github.com/my-open-course/jenkins-pipeline-shared-libraries/actions/workflows/gradle.yml/badge.svg)
+[![Build Status](https://github.com/my-open-course/jenkins-pipeline-shared-libraries/actions/workflows/gradle.yml/badge.svg)](https://github.com/my-open-course/jenkins-pipeline-shared-libraries)
 
 ### 使用说明
 
