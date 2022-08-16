@@ -18,7 +18,7 @@ class MathArithmeticTest extends DeclarativePipelineTest {
         scriptRoots += 'jenkinsJobs'
         scriptExtension = 'Jenkinsfile'
 
-        def library = library().name('shared-library')
+        def library = library().name('jenkins-pipeline-shared-libraries')
                 .defaultVersion('<notNeeded>')
                 .allowOverride(true)
                 .implicit(true)
