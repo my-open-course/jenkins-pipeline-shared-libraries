@@ -14,6 +14,15 @@ println GroovySystem.version
 
 ## 相关资料
 
-1. [JenkinsPipelineUnit][1]
+1. [Jenkins][1]
+2. [Jenkins Pipeline][2]
+3. [JenkinsPipelineUnit][3]
+4. [Jenkins Pipeline Syntax][4]
 
-[1]: https://github.com/jenkinsci/JenkinsPipelineUnit
+[1]:https://www.jenkins.io/
+
+[2]:https://www.jenkins.io/doc/book/pipeline/syntax/
+
+[3]:https://github.com/jenkinsci/JenkinsPipelineUnit
+
+[4]:https://gist.github.com/Mr-LiuDC/8a1fbe27e8fbd42361185b06085ef4c3
