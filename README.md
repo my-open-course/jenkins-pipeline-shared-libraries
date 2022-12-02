@@ -12,7 +12,7 @@ println GroovySystem.version
 
 如无特殊情况，共享库使用的 `Groovy` 版本尽量和 `Jenkins` 中的保持一致。
 
-## 相关资料
+### 相关资料
 
 1. [Jenkins][1]
 2. [Jenkins Pipeline][2]
