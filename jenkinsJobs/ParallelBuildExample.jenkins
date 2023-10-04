@@ -1,0 +1,65 @@
+pipeline {
+    agent any
+    options {
+        timestamps()
+    }
+    stages {
+        stage('Checkout') {
+            steps {
+                echo('Source code checkout')
+            }
+        }
+        stage('Build') {
+            steps {
+                echo('Source code compile')
+            }
+        }
+        stage('Quality') {
+            parallel {
+                stage('Sonar gateway') {
+                    steps {
+                        echo('Sonarqube quality gateway')
+                    }
+                }
+                stage('Unit testing') {
+                    steps {
+                        echo('Unit testing')
+                    }
+                }
+            }
+        }
+        stage('Archive') {
+            steps {
+                echo('Archiving artifacts')
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo('Deploying')
+            }
+        }
+        stage('System test') {
+            steps {
+                echo('Start system testing')
+                script {
+                    parallel(
+                            "System test 1": {
+                                echo('System test 1')
+                            },
+                            "System test 2": {
+                                echo('System test 2')
+                            },
+                            "System test 3": {
+                                echo('System test 3')
+                            }
+                    )
+                }
+            }
+        }
+        stage('Cleanup') {
+            steps {
+                echo('Clean build environment')
+            }
+        }
+    }
+}
