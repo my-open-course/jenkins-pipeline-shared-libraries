@@ -86,6 +86,7 @@ contributor(closures) {
         method(name: 'jiraIssueSelector', type: Object, params: [:], doc: 'JIRA: Issue selector')
         method(name: 'jiraIssueSelector', type: Object, namedParams: [parameter(name: 'issueSelector', type: Map)], doc: 'JIRA: Issue selector')
         method(name: 'jiraSearch', type: Object, params: [jql: String], doc: 'JIRA: Search issues')
+        method(name: 'tools', type: Object, params: [body: Closure], doc: 'Use tools from predefined Tool Installation')
 
         // Some others function
         method(name: 'build', type: Object, params: [job: String], doc: 'Build a job')
@@ -186,6 +187,14 @@ contributor(closures) {
                               parameter(name: 'regexpFilterText', type: String, doc: ''),
                               parameter(name: 'regexpFilterExpression', type: String, doc: ''),
                 ])
+    }
+
+    // The tools section
+    if (enclosingCall("tools")) {
+        method(name: 'git', type: String, params: [name: String])
+        method(name: 'jdk', type: String, params: [name: String])
+        method(name: 'maven', type: String, params: [name: String])
+        method(name: 'gradle', type: String, params: [name: String])
     }
 
     // The parameters section
