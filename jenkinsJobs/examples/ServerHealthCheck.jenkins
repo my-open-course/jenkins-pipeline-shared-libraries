@@ -4,7 +4,9 @@ def serverCommandMap = [
 ]
 
 pipeline {
-    agent any
+    agent {
+        label 'jenkins_host'
+    }
     stages {
         stage('Check Server Status') {
             steps {
