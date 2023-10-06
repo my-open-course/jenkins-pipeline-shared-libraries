@@ -15,7 +15,7 @@ class MathArithmeticTest extends DeclarativePipelineTest {
     @Before
     @Override
     void setUp() {
-        scriptRoots += 'jenkinsJobs'
+        scriptRoots += 'jenkinsJobs/examples'
         scriptExtension = 'Jenkinsfile'
 
         def library = library().name('jenkins-pipeline-shared-libraries')

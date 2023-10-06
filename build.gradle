@@ -37,6 +37,7 @@ jacocoTestReport {
         html.enabled = true
     }
 }
+check.dependsOn jacocoTestReport, jacocoTestCoverageVerification
 
 repositories {
     maven { url 'https://maven.aliyun.com/repository/public' }

@@ -1,0 +1,45 @@
+// 定义一批待监控的站点
+def siteMap = [
+        'baidu' : 'https://www.baidu.com',
+        'google': 'https://www.google.com'
+]
+
+pipeline {
+    agent any
+    // 设置每小时执行
+    triggers {
+        cron('@hourly')
+    }
+    options {
+        timestamps()
+    }
+    stages {
+        stage('测试站点监控') {
+            steps {
+                script {
+                    siteMap.each {
+                        echo("check service health, service name [${it.key}], health check url [${it.value}]")
+                        try {
+                            // 重试3次
+                            retry(3) {
+                                httpRequest consoleLogResponseBody: true, timeout: 3, url: it.value, httpMode: 'GET'
+                            }
+                        } catch (Exception exception) {
+                            echo(exception.localizedMessage)
+                            def requestBody = """
+                            {
+                                "msgtype": "text",
+                                "text": {
+                                    "content": "服务：[${it.key}]出现异常\nURL地址：${it.value}"
+                                }
+                            }
+                            """
+                            def webhook = 'https://oapi.dingtalk.com/robot/send?access_token=xxxxxx'
+                            httpRequest acceptType: 'APPLICATION_JSON_UTF8', contentType: 'APPLICATION_JSON_UTF8', httpMode: 'POST', requestBody: requestBody, url: webhook
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,25 @@
+def serverCommandMap = [
+        '172.31.31.108': "ping 172.31.31.108 -c 3",
+        '172.31.31.109': "ping 172.31.31.109 -c 3",
+]
+
+pipeline {
+    agent any
+    stages {
+        stage('Check Server Status') {
+            steps {
+                script {
+                    serverCommandMap.each {
+                        echo("Check server health, server ip [${it.key}]")
+                        def status = sh(script: it.value, returnStatus: true)
+                        if (status == 0) {
+                            echo "Server $it.key is OK"
+                        } else {
+                            echo "Server $it.key is Down"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

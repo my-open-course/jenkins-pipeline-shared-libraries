@@ -1,0 +1,42 @@
+def siteMap = [
+        'baidu' : 'https://www.baidu.com',
+        'google': 'https://www.google.com'
+]
+
+pipeline {
+    agent any
+    triggers {
+        cron('@hourly')
+    }
+    options {
+        timestamps()
+    }
+    stages {
+        stage('Check service health') {
+            steps {
+                script {
+                    siteMap.each {
+                        echo("check service health, service name [${it.key}], health check url [${it.value}]")
+                        def retryCount = 5
+                        def retryAttempt = 0
+                        retry(retryCount) {
+                            if (retryAttempt > 0) {
+                                def sleepTime = 60 - 10 * retryAttempt
+                                echo("Sleep ${sleepTime} seconds before retry")
+                                sleep(sleepTime)
+                            }
+                            retryAttempt++
+                            echo("The ${retryAttempt}th attempt to check service health, service name [${it.key}], health check url [${it.value}]")
+                            timeout(time: 10, unit: 'SECONDS') {
+                                def response = httpRequest url: it.value
+                                if (response.status != 200) {
+                                    error("Service ${it.key} is down，with status code ${response.status} and response body ${response.content}")
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

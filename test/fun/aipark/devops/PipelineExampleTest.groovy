@@ -12,7 +12,7 @@ class PipelineExampleTest extends DeclarativePipelineTest {
     @Before
     @Override
     void setUp() {
-        scriptRoots += 'jenkinsJobs'
+        scriptRoots += 'jenkinsJobs/examples'
         scriptExtension = 'Jenkinsfile'
         super.setUp()
     }
