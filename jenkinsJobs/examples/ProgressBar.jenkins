@@ -1,0 +1,22 @@
+pipeline {
+    agent any
+    stages {
+        stage('测试进度条') {
+            steps {
+                script {
+                    def totalSteps = 10
+                    for (int i = 0; i <= totalSteps; i++) {
+                        // 计算进度
+                        def progress = (i * 100) / totalSteps
+                        def bar = '█' * i + ' ' * (totalSteps - i)
+                        // 输出进度条
+                        print("Progress: [${bar}] ${progress}%")
+                        // 模拟延时
+                        sleep(1)
+                    }
+                    println("Done!")
+                }
+            }
+        }
+    }
+}
