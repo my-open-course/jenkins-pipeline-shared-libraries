@@ -10,7 +10,7 @@ ext {
     projectVersion = '1.0.0-SNAPSHOT'
 
     junitVersion = '4.12'
-    hutoolVersion = '5.7.22'
+    hutoolVersion = '5.8.35'
     groovyVersion = '2.4.14'
     groovyCPSVersion = '1.31'
     jenkinsPipelineUnitVersion = '1.14'
