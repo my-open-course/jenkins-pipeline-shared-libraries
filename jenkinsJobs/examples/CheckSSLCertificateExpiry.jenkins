@@ -1,0 +1,49 @@
+import java.text.SimpleDateFormat
+
+pipeline {
+    agent any
+
+    stages {
+        stage('Check SSL Certificate Expiry') {
+            steps {
+                script {
+                    def hostname = 'www.baidu.com'
+                    def port = 443
+
+                    def opensslOutput = sh(
+                            script: """
+                            echo | openssl s_client -connect ${hostname}:${port} -servername ${hostname} 2>/dev/null | \
+                            openssl x509 -noout -dates
+                        """,
+                            returnStdout: true
+                    ).trim()
+
+                    def notAfterMatcher = (opensslOutput =~ /notAfter=(.*)/)
+                    if (!notAfterMatcher) {
+                        error "无法解析证书到期时间"
+                    }
+                    def notAfterStr = notAfterMatcher[0][1].trim()
+
+                    def sdf = new SimpleDateFormat("MMM dd HH:mm:ss yyyy zzz")
+                    def expiryDate = sdf.parse(notAfterStr)
+                    def currentDate = new Date()
+
+                    // 计算剩余天数：(毫秒差 / 一天毫秒数)
+                    def daysUntilExpiry = (expiryDate.time - currentDate.time) / (1000 * 60 * 60 * 24) as int
+
+                    def formattedExpiry = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z").format(expiryDate)
+                    def formattedCurrent = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z").format(currentDate)
+
+                    echo "当前日期: ${formattedCurrent}"
+                    echo "域名: ${hostname}"
+                    echo "证书到期时间: ${formattedExpiry}"
+                    echo "距离到期还有 ${daysUntilExpiry} 天"
+
+                    if (daysUntilExpiry < 30) {
+                        unstable("证书即将到期！剩余 ${daysUntilExpiry} 天")
+                    }
+                }
+            }
+        }
+    }
+}
