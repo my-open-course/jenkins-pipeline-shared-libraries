@@ -18,5 +18,29 @@ pipeline {
                 sh 'gradle -version'
             }
         }
+        stage('jdk8') {
+            tools {
+                jdk('jdk8')
+            }
+            steps {
+                sh 'java -version'
+            }
+        }
+        stage('jdk17') {
+            tools {
+                jdk('jdk17')
+            }
+            steps {
+                sh 'java -version'
+            }
+        }
+        stage('jdk21') {
+            tools {
+                jdk('jdk21')
+            }
+            steps {
+                sh 'java -version'
+            }
+        }
     }
 }
