@@ -89,8 +89,8 @@ contributor(closures) {
         method(name: 'tools', type: Object, params: [body: Closure], doc: 'Use tools from predefined Tool Installation')
 
         // Some others function
-        method(name: 'build', type: Object, params: [job: String], doc: 'Build a job')
-        method(name: 'build', type: Object, namedParams: [parameter(name: 'job', type: String), parameter(name: 'parameters', type: List), parameter(name: 'propagate', type: Boolean), parameter(name: 'quietPeriod', type: Integer), parameter(name: 'wait', type: Boolean)], doc: 'Build a job')
+        method(name: 'build', type: Object, params: [job: Object], doc: 'Build a job')
+        method(name: 'build', type: Object, namedParams: [parameter(name: 'job', type: Object), parameter(name: 'parameters', type: List), parameter(name: 'propagate', type: Boolean), parameter(name: 'quietPeriod', type: Integer), parameter(name: 'wait', type: Boolean)], doc: 'Build a job')
         method(name: 'ec2', type: Object, namedParams: [parameter(name: 'cloud', type: String), parameter(name: 'template', type: String)], doc: 'Cloud template provisioning')
         method(name: 'error', type: Object, params: [message: String], doc: 'Error signal')
         method(name: 'input', type: Object, params: [message: String], doc: 'Wait for interactive input')
@@ -99,6 +99,7 @@ contributor(closures) {
         method(name: 'library', type: Object, params: [identifier: String], doc: 'Load a shared library on the fly')
         method(name: 'library', type: Object, namedParams: [parameter(name: 'identifier', type: String), parameter(name: 'changelog', type: 'java.lang.Boolean'), parameter(name: 'retriever', type: Map)], doc: 'Load a shared library on the fly')
         method(name: 'libraryResource', type: Object, params: [resource: String], doc: 'Load a resource file from a shared library')
+        method(name: 'libraryResource', type: String, namedParams: [parameter(name: 'resource', type: String), parameter(name: 'encoding ', type: String)], doc: 'Load a resource file from a shared library')
         method(name: 'mail', type: Object, namedParams: [parameter(name: 'subject', type: String), parameter(name: 'body', type: String), parameter(name: 'bcc', type: String), parameter(name: 'cc', type: String), parameter(name: 'charset', type: String), parameter(name: 'from', type: String), parameter(name: 'mimeType', type: String), parameter(name: 'replyTo', type: String), parameter(name: 'to', type: String)], doc: 'Mail')
         method(name: 'milestone', type: Object, params: [ordinal: Integer], doc: 'The milestone step forces all builds to go through in order')
         method(name: 'milestone', type: Object, namedParams: [parameter(name: 'ordinal', type: Integer), parameter(name: 'label', type: String)], doc: 'The milestone step forces all builds to go through in order')
@@ -134,14 +135,14 @@ contributor(closures) {
 
     // The Credentials section
     if (enclosingMethod("withCredentials")) {
-        method(name: 'sshUserPrivateKey', type: Object, namedParams: [parameter(name: 'credentialsId', type: String), parameter(name: 'keyFileVariable', type: String), parameter(name: 'passphraseVariable', type: String), parameter(name: 'usernameVariable', type: String)], 'doc': 'SSH User Private Key credentials')
-        method(name: 'certificate', type: Object, namedParams: [parameter(name: 'keystoreVariable', type: String), parameter(name: 'credentialsId', type: String), parameter(name: 'aliasVariable', type: String), parameter(name: 'passwordVariable', type: String)], 'doc': 'Certificate credentials')
-        method(name: 'dockerCert', type: Object, namedParams: [parameter(name: 'variable', type: String), parameter(name: 'credentialsId', type: String)], 'doc': 'Docker client certificate credentials')
-        method(name: 'file', type: Object, namedParams: [parameter(name: 'variable', type: String), parameter(name: 'credentialsId', type: String)], 'doc': 'Secret file credentials')
-        method(name: 'string', type: Object, namedParams: [parameter(name: 'variable', type: String), parameter(name: 'credentialsId', type: String)], 'doc': 'Secret text credentials')
-        method(name: 'usernameColonPassword', type: Object, namedParams: [parameter(name: 'variable', type: String), parameter(name: 'credentialsId', type: String)], 'doc': 'Username and password(conjoined) credentials')
-        method(name: 'usernamePassword', type: Object, namedParams: [parameter(name: 'usernameVariable', type: String), parameter(name: 'passwordVariable', type: String), parameter(name: 'credentialsId', type: String)], 'doc': 'Username and password(separated)  credentials')
-        method(name: 'gitUsernamePassword', type: Object, namedParams: [parameter(name: 'credentialsId', type: String), parameter(name: 'gitToolName', type: String)], 'doc': 'gitUsernamePassword of the credentials')
+        method(name: 'sshUserPrivateKey', type: Object, namedParams: [parameter(name: 'credentialsId', type: Object), parameter(name: 'keyFileVariable', type: String), parameter(name: 'passphraseVariable', type: String), parameter(name: 'usernameVariable', type: String)], 'doc': 'SSH User Private Key credentials')
+        method(name: 'certificate', type: Object, namedParams: [parameter(name: 'keystoreVariable', type: String), parameter(name: 'credentialsId', type: Object), parameter(name: 'aliasVariable', type: String), parameter(name: 'passwordVariable', type: String)], 'doc': 'Certificate credentials')
+        method(name: 'dockerCert', type: Object, namedParams: [parameter(name: 'variable', type: String), parameter(name: 'credentialsId', type: Object)], 'doc': 'Docker client certificate credentials')
+        method(name: 'file', type: Object, namedParams: [parameter(name: 'variable', type: String), parameter(name: 'credentialsId', type: Object)], 'doc': 'Secret file credentials')
+        method(name: 'string', type: Object, namedParams: [parameter(name: 'variable', type: String), parameter(name: 'credentialsId', type: Object)], 'doc': 'Secret text credentials')
+        method(name: 'usernameColonPassword', type: Object, namedParams: [parameter(name: 'variable', type: String), parameter(name: 'credentialsId', type: Object)], 'doc': 'Username and password(conjoined) credentials')
+        method(name: 'usernamePassword', type: Object, namedParams: [parameter(name: 'usernameVariable', type: String), parameter(name: 'passwordVariable', type: String), parameter(name: 'credentialsId', type: Object)], 'doc': 'Username and password(separated)  credentials')
+        method(name: 'gitUsernamePassword', type: Object, namedParams: [parameter(name: 'credentialsId', type: Object), parameter(name: 'gitToolName', type: String)], 'doc': 'gitUsernamePassword of the credentials')
     }
 
     // The agent section
@@ -207,7 +208,7 @@ contributor(closures) {
 
     // The options section
     if (enclosingCall("options")) {
-        method(name: 'buildDiscarder', type: Object, params: [logRotator: String], doc: 'Persist artifacts and console output for the specific number of recent Pipeline runs')
+        method(name: 'buildDiscarder', type: Object, params: [logRotator: Object], doc: 'Persist artifacts and console output for the specific number of recent Pipeline runs')
         if (enclosingMethod('buildDiscarder')) {
             method(name: 'logRotator', type: Object, namedParams: [parameter(name: 'numToKeepStr', type: String), parameter(name: 'daysToKeepStr', type: String), parameter(name: 'artifactNumToKeepStr', type: String), parameter(name: 'artifactDaysToKeepStr', type: String)])
         }
@@ -282,7 +283,7 @@ contributor(closures) {
         method(name: 'dir', type: Object, params: [path: String, body: Closure], doc: 'Change current directory')
         method(name: 'fileExists', type: Object, params: [file: String], doc: 'Verify if file exists in workspace')
         method(name: 'git', type: Object, params: [url: String], doc: 'Git')
-        method(name: 'git', type: Object, namedParams: [parameter(name: 'url', type: String), parameter(name: 'branch', type: String), parameter(name: 'changelog', type: Boolean), parameter(name: 'credentialsId', type: String), parameter(name: 'poll', type: Boolean)], doc: 'Git')
+        method(name: 'git', type: Object, namedParams: [parameter(name: 'url', type: String), parameter(name: 'branch', type: String), parameter(name: 'changelog', type: Boolean), parameter(name: 'credentialsId', type: Object), parameter(name: 'poll', type: Boolean)], doc: 'Git')
         method(name: 'junit', type: Object, params: [testResults: String], doc: 'Archive JUnit-formatted test results')
         method(name: 'junit', type: Object, namedParams: [parameter(name: 'testResults', type: String), parameter(name: 'allowEmptyResults', type: Boolean), parameter(name: 'healthScaleFactor', type: 'double'), parameter(name: 'keepLongStdio', type: Boolean), parameter(name: 'testDataPublishers', type: Map)], doc: 'Archive JUnit-formatted test results')
         method(name: 'load', type: Object, params: [path: String], doc: 'Evaluate a Groovy source file into the Pipeline script')
