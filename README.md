@@ -8,6 +8,8 @@
 
 ```
 println GroovySystem.version
+
+println(Jenkins.instance.pluginManager.plugins)
 ```
 
 如无特殊情况，共享库使用的 `Groovy` 版本尽量和 `Jenkins` 中的保持一致。

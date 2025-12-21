@@ -18,8 +18,8 @@ ext {
 
 group = projectGroupId
 version = projectVersion
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = 17
+targetCompatibility = 17
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
 idea {
